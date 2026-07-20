@@ -6,6 +6,23 @@
     <title>Unity Web Player | Storyliner</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
+    <style>
+      @media screen and (max-aspect-ratio: 1/1) {
+        .unity-mobile {
+          transform: rotate(90deg);
+          transform-origin: top left;
+          width: 100vh !important;
+          height: 100vw !important;
+          position: absolute;
+          top: 0;
+          left: 100%;
+        }
+        body {
+          overflow: hidden;
+          margin: 0;
+        }
+      }
+    </style>
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
@@ -113,6 +130,9 @@
                 document.querySelector("#unity-loading-bar").style.display = "none";
                 document.querySelector("#unity-fullscreen-button").onclick = () => {
                   unityInstance.SetFullscreen(1);
+                  if (screen.orientation && screen.orientation.lock) {
+                    screen.orientation.lock('landscape').catch(() => {});
+                  }
                 };
 
               }).catch((message) => {
